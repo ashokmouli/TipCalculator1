@@ -25,11 +25,13 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f080006;
-        public static final int btn10=0x7f080002;
-        public static final int btn15=0x7f080001;
+        public static final int action_settings=0x7f080008;
+        public static final int btn10=0x7f080001;
+        public static final int btn15=0x7f080002;
         public static final int btn20=0x7f080003;
         public static final int etEntAmt=0x7f080000;
+        public static final int etSplitVal=0x7f080007;
+        public static final int txSplitBy=0x7f080006;
         public static final int txTipLabel=0x7f080004;
         public static final int txTipVal=0x7f080005;
     }
@@ -48,6 +50,8 @@ public final class R {
         public static final int empty_string=0x7f050008;
         public static final int enter_amt=0x7f050003;
         public static final int hello_world=0x7f050001;
+        public static final int one_string=0x7f05000a;
+        public static final int split_by=0x7f050009;
         public static final int tip_is_string=0x7f050007;
     }
     public static final class style {

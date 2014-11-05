@@ -18,7 +18,9 @@ public class MainActivity extends Activity {
 	private EditText et; // The widget that stores the amount
 	private TextView tv; // The widget displaying the Tip
 	private Button selectedBtn; // The button that is currently selected.
-	double  tipPercent; // The percent to be used in computation.
+	private EditText etSplitBy; // The widget containing the split by value.
+	private double  tipPercent; // The percent to be used in computation.
+	private int splitBy; // Split the tip by this number.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +29,7 @@ public class MainActivity extends Activity {
         // Save a pointer to the view objects.
         et = (EditText) findViewById(R.id.etEntAmt);
         tv = (TextView) findViewById(R.id.txTipVal);
+        etSplitBy = (EditText) findViewById(R.id.etSplitVal);
         tipPercent = 0.0;
         // Register a editor action listener
         et.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -36,6 +39,15 @@ public class MainActivity extends Activity {
 				// Compute a new tip value and set it.
 				setTipValue();  
 				return true;
+			}
+		});
+        etSplitBy.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				// Compute a new tip value and set it.
+				setTipValue();
+				return false;
 			}
 		});
     }
@@ -67,7 +79,7 @@ public class MainActivity extends Activity {
     	// Set the background color on the button that was selected, and
     	// reset the background to default if a button is in selected state.
     	bt.setBackgroundColor(Color.BLUE);
-    	if (selectedBtn != null) {
+    	if (selectedBtn != null && selectedBtn != bt) {
     		selectedBtn.setBackgroundResource(android.R.drawable.btn_default);
     	}
     	selectedBtn = bt;
@@ -90,6 +102,7 @@ public class MainActivity extends Activity {
     
     private void setTipValue() {
     	
+    	
     	// Read the total amount and convert it double.
     	String val = et.getText().toString();
     	Double d = 0.0;
@@ -99,8 +112,18 @@ public class MainActivity extends Activity {
     	catch (NumberFormatException e) {
     		
     	}
+    	
+    	// Read the split by value.
+    	val = etSplitBy.getText().toString();
+    	try {
+    		splitBy = Integer.parseInt(val);
+    	}
+    	catch (NumberFormatException e) {
+    		// Set splitBy to 1 if there is an error parsing.
+    		splitBy = 1;
+    	}
     	// Compute the tip.
-    	Double tip = tipPercent * d;
+    	Double tip = tipPercent * d / splitBy;
     	
     	// Set the tip in the textview field.
     	String fmtString = String.format("$%6.2f", tip);

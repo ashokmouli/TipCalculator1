@@ -23,16 +23,6 @@
     </EditText>
 
     <Button
-        android:id="@+id/btn15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:onClick="btnClicked"
-        android:focusable="false"
-        android:text="@string/btn_15_string" />
-
-    <Button
         android:id="@+id/btn10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,5 +64,38 @@
         android:layout_toRightOf="@+id/txTipLabel"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/btn15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/etEntAmt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="62dp"
+        android:focusable="false"
+        android:onClick="btnClicked"
+        android:text="@string/btn_15_string" />
+
+    <TextView
+        android:id="@+id/txSplitBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btn10"
+        android:layout_below="@+id/btn10"
+        android:layout_marginTop="86dp"
+        android:text="@string/split_by"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/etSplitVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/txSplitBy"
+        android:layout_alignBottom="@+id/txSplitBy"
+        android:layout_alignLeft="@+id/txTipVal"
+        android:layout_marginLeft="25dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="@string/one_string" />
 
 </RelativeLayout>
