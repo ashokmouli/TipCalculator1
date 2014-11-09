@@ -1,5 +1,11 @@
 package com.yahoo.amouli.tipcalculator;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import org.apache.commons.io.FileUtils;
+
 import android.R.color;
 import android.app.Activity;
 import android.graphics.Color;
@@ -10,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 
@@ -17,8 +25,9 @@ public class MainActivity extends Activity {
 	
 	private EditText et; // The widget that stores the amount
 	private TextView tv; // The widget displaying the Tip
-	private Button selectedBtn; // The button that is currently selected.
 	private EditText etSplitBy; // The widget containing the split by value.
+	private EditText etTipPercent; // The widget containing custom percent value.
+	private RadioGroup rgPercentGroup;
 	private double  tipPercent; // The percent to be used in computation.
 	private int splitBy; // Split the tip by this number.
 
@@ -30,8 +39,10 @@ public class MainActivity extends Activity {
         et = (EditText) findViewById(R.id.etEntAmt);
         tv = (TextView) findViewById(R.id.txTipVal);
         etSplitBy = (EditText) findViewById(R.id.etSplitVal);
+        etTipPercent = (EditText) findViewById(R.id.etTipPercent);
+        rgPercentGroup = (RadioGroup) findViewById(R.id.btnGroup);
         tipPercent = 0.0;
-        // Register a editor action listener
+        // Register a editor action listener for amount
         et.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 			
 			@Override
@@ -41,15 +52,49 @@ public class MainActivity extends Activity {
 				return true;
 			}
 		});
-        etSplitBy.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        etTipPercent.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 			
 			@Override
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				// Read the value from the widget and convert it to tip percent.
+				String val = etTipPercent.getText().toString();
+				int percentVal;
+		    	try {
+		    		 percentVal = Integer.parseInt(val);
+		    		 tipPercent = percentVal/100.0;
+		    	}
+		    	catch (NumberFormatException e) {
+		    		tipPercent = 1;
+		    	}
+		    	
+		    	// Uncheck the radio button.
+		    	rgPercentGroup.clearCheck();
+		    	
 				// Compute a new tip value and set it.
 				setTipValue();
 				return false;
 			}
 		});
+        
+        // Register an editor action listener for split by.
+        etSplitBy.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+			
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				// Read the value from the widget and convert it to Split value.
+				String val = etSplitBy.getText().toString();
+		    	try {
+		    		 splitBy = Integer.parseInt(val);
+		    	}
+		    	catch (NumberFormatException e) {
+		    		splitBy = 1;
+		    	}
+				// Compute a new tip value and set it.
+				setTipValue();
+				return false;
+			}
+		});
+        
     }
 
 
@@ -72,17 +117,42 @@ public class MainActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-    public void btnClicked(View v) {
-    		
-    	Button bt = (Button) v;
-    	
-    	// Set the background color on the button that was selected, and
-    	// reset the background to default if a button is in selected state.
-    	bt.setBackgroundColor(Color.BLUE);
-    	if (selectedBtn != null && selectedBtn != bt) {
-    		selectedBtn.setBackgroundResource(android.R.drawable.btn_default);
+    
+    private void readTipPercent() {
+    	File fileDir = this.getFilesDir();
+    	File tipCalcFile = new File(fileDir, "tipCalc.txt");
+    	try {
+    		ArrayList<String> items = new ArrayList<String>(FileUtils.readLines(tipCalcFile));
+    		String percentVal = items.get(0);
+        	etTipPercent.setText(percentVal);
     	}
-    	selectedBtn = bt;
+    	catch (IOException e) {
+    		etTipPercent.setText("");
+    		
+    	}
+ 
+    }
+    
+    private void writeState() {
+    	File fileDir = getFilesDir();
+    	File tipCalcFile = new File(fileDir, "tipCalc.txt");
+    	String percentVal = etTipPercent.getText().toString();
+    	ArrayList<String> items = new ArrayList<String>();
+    	items.add(percentVal);
+    	try {
+			FileUtils.writeLines(tipCalcFile, items);
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+    }
+    
+    public void btnClicked(View v) {
+    	
+    	// This method is called when the radio button is clicked.
+    		
+    	RadioButton bt = (RadioButton) v;
+    	
     	
     	// Determine the button that was pressed. 
     	String btnText = bt.getText().toString();
@@ -101,6 +171,7 @@ public class MainActivity extends Activity {
     }
     
     private void setTipValue() {
+    	// Computes the Tip and sets it in the text view.
     	
     	
     	// Read the total amount and convert it double.

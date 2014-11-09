@@ -22,80 +22,104 @@
         <requestFocus />
     </EditText>
 
-    <Button
-        android:id="@+id/btn10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btn15"
-        android:layout_alignBottom="@+id/btn15"
-        android:layout_toLeftOf="@+id/btn15"
-        android:onClick="btnClicked"
-        android:focusable="false"
-        android:text="@string/btn_10_string" />
-
-    <Button
-        android:id="@+id/btn20"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btn15"
-        android:layout_alignBottom="@+id/btn15"
-        android:layout_toRightOf="@+id/btn15"
-        android:onClick="btnClicked"
-        android:focusable="false"
-        android:text="@string/btn_20_string" />
-
-    <TextView
-        android:id="@+id/txTipLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btn10"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="22dp"
-        android:text="@string/tip_is_string"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <TextView
         android:id="@+id/txTipVal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txTipLabel"
         android:layout_alignBottom="@+id/txTipLabel"
         android:layout_marginLeft="25dp"
         android:layout_toRightOf="@+id/txTipLabel"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <Button
-        android:id="@+id/btn15"
+    <RadioGroup
+        android:id="@+id/btnGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etEntAmt"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="62dp"
-        android:focusable="false"
-        android:onClick="btnClicked"
-        android:text="@string/btn_15_string" />
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvSelDesc"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/btn10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:onClick="btnClicked"
+            android:text="@string/btn_10_string" />
+
+        <RadioButton
+            android:id="@+id/btn15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="btnClicked"
+            android:text="@string/btn_15_string" />
+
+        <RadioButton
+            android:id="@+id/btn20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="btnClicked"
+            android:text="@string/btn_20_string" />
+    </RadioGroup>
 
     <TextView
-        android:id="@+id/txSplitBy"
+        android:id="@+id/tvSelDesc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btn10"
-        android:layout_below="@+id/btn10"
-        android:layout_marginTop="86dp"
-        android:text="@string/split_by"
+        android:layout_alignLeft="@+id/btnGroup"
+        android:layout_below="@+id/etEntAmt"
+        android:layout_marginTop="40dp"
+        android:text="@string/sel_desc_string"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/txTipLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="36dp"
+        android:text="@string/tip_is_string"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/tvSplitByDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/etTipPercent"
+        android:layout_marginTop="40dp"
+        android:text="@string/split_by"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <EditText
         android:id="@+id/etSplitVal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/txSplitBy"
-        android:layout_alignBottom="@+id/txSplitBy"
-        android:layout_alignLeft="@+id/txTipVal"
-        android:layout_marginLeft="25dp"
+        android:layout_alignLeft="@+id/tvSplitByDesc"
+        android:layout_below="@+id/tvSplitByDesc"
         android:ems="10"
         android:inputType="number"
         android:text="@string/one_string" />
+
+    <TextView
+        android:id="@+id/tvEnterPercent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/btnGroup"
+        android:text="@string/ent_percent_string"
+        android:layout_marginTop="40dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <EditText
+        android:id="@+id/etTipPercent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvEnterPercent"
+        android:ems="10"
+        android:inputType="number" />
 
 </RelativeLayout>

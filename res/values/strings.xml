@@ -10,7 +10,10 @@
     <string name="btn_15_string">15%</string>
     <string name="tip_is_string">Tip is:</string>
     <string name="empty_string">\"\"</string>
-    <string name="split_by">Split By:</string>
+    <string name="split_by">Split by:</string>
     <string name="one_string">1</string>
+    <string name="or_string">Or</string>
+    <string name="ent_percent_string">Or Enter Percent Value:</string>
+    <string name="sel_desc_string">Tip Percentage:</string>
 
 </resources>
